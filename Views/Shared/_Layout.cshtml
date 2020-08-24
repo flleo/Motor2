@@ -1,0 +1,54 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body class="container bg-dark text-white ">
+    <div class="navbar  fixed-top bg-danger " >
+        <a class="" href="/Home/Index/@ViewBag.Id" style="color:white;font-size:small;text-decoration:none;">Motor</a>
+        <a class=""  href="/Coches/Index/=@ViewBag.Id" style="color:white;font-size:small;text-decoration:none;">Coches</a>
+        <a class="" href="/Motos/Index/@ViewBag.Id" style="color:white;font-size:small;text-decoration:none;">Motos</a>
+        <a class="" href="/Home/About/@ViewBag.Id" style="color:white;font-size:small;text-decoration:none;">Acerca de</a>
+        <a class="" href="/Home/Contact/@ViewBag.Id" style="color:white;font-size:small;text-decoration:none;">Contacto</a>
+        <a class="  " href="/Users/@ViewBag.Href/@ViewBag.Id" style="color:white;font-size:small;text-decoration:none;">
+            @ViewBag.User1&nbsp;
+            @if (ViewBag.FileId != null)
+            {
+                <img src="~/Files?id=@ViewBag.FileId" style="height:25px;width:25px;" />
+            }
+            else
+            {
+                <img src="/Content/images/images.jfif" style="height:25px;width:25px;" />
+            }
+        </a>
+        @if (ViewBag.User1 == "Login")
+        {
+            @Html.ActionLink("Registro", "Create", new { controller = "Users" }, new {style = "font-size:small;text-decoration:none;" })
+        }
+        else
+        {
+            @Html.ActionLink("Salir", "Index", new { controller = "Home" , id = 0}, new { style = "font-size:small;text-decoration:none;" })
+        }
+    </div>
+    <div class="container ">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Motor</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

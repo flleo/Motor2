@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b612d2ac67b04a798195280f4acbf559" Name="Diagram1">
+        <EntityTypeShape EntityType="motorModel.Coch" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="motorModel.File" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="motorModel.Moto" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="motorModel.User" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="motorModel.FK__Coches__UserId__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="motorModel.FK__Files__CocheId__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="motorModel.FK__Files__MotoId__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="motorModel.FK__Files__UserId__7C4F7684" ManuallyRouted="false" />
+        <AssociationConnector Association="motorModel.FK__Motos__UserId__49C3F6B7" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

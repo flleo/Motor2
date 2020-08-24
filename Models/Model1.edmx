@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="motorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Coches">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="fecha" Type="nvarchar" MaxLength="100" />
+          <Property Name="nombreFichero" Type="varchar" MaxLength="100" />
+          <Property Name="foto" Type="image" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Files">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ContentType" Type="nchar" MaxLength="100" />
+          <Property Name="Content" Type="image" />
+          <Property Name="FileType" Type="int" />
+          <Property Name="MotoId" Type="int" />
+          <Property Name="CocheId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Motos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="fecha" Type="nvarchar" MaxLength="100" />
+          <Property Name="nombreFichero" Type="varchar" MaxLength="100" />
+          <Property Name="foto" Type="image" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="email" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombreFichero" Type="varchar" MaxLength="100" />
+          <Property Name="foto" Type="image" />
+        </EntityType>
+        <Association Name="FK__Coches__UserId__48CFD27E">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Coches" Type="Self.Coches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Coches">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__CocheId__7A672E12">
+          <End Role="Coches" Type="Self.Coches" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coches">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="CocheId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__MotoId__7B5B524B">
+          <End Role="Motos" Type="Self.Motos" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="MotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__UserId__7C4F7684">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Motos__UserId__49C3F6B7">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Motos" Type="Self.Motos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Motos">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="motorModelStoreContainer">
+          <EntitySet Name="Coches" EntityType="Self.Coches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Motos" EntityType="Self.Motos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Coches__UserId__48CFD27E" Association="Self.FK__Coches__UserId__48CFD27E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Coches" EntitySet="Coches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__CocheId__7A672E12" Association="Self.FK__Files__CocheId__7A672E12">
+            <End Role="Coches" EntitySet="Coches" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__MotoId__7B5B524B" Association="Self.FK__Files__MotoId__7B5B524B">
+            <End Role="Motos" EntitySet="Motos" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__UserId__7C4F7684" Association="Self.FK__Files__UserId__7C4F7684">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Motos__UserId__49C3F6B7" Association="Self.FK__Motos__UserId__49C3F6B7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Motos" EntitySet="Motos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="motorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Coch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nombreFichero" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Coches__UserId__48CFD27E" FromRole="Coches" ToRole="Users" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__Files__CocheId__7A672E12" FromRole="Coches" ToRole="Files" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ContentType" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Content" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileType" Type="Int32" />
+          <Property Name="MotoId" Type="Int32" />
+          <Property Name="CocheId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Coch" Relationship="Self.FK__Files__CocheId__7A672E12" FromRole="Files" ToRole="Coches" />
+          <NavigationProperty Name="Moto" Relationship="Self.FK__Files__MotoId__7B5B524B" FromRole="Files" ToRole="Motos" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Files__UserId__7C4F7684" FromRole="Files" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Moto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="nombreFichero" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__Files__MotoId__7B5B524B" FromRole="Motos" ToRole="Files" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Motos__UserId__49C3F6B7" FromRole="Motos" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="nombreFichero" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Coches" Relationship="Self.FK__Coches__UserId__48CFD27E" FromRole="Users" ToRole="Coches" />
+          <NavigationProperty Name="Files" Relationship="Self.FK__Files__UserId__7C4F7684" FromRole="Users" ToRole="Files" />
+          <NavigationProperty Name="Motos" Relationship="Self.FK__Motos__UserId__49C3F6B7" FromRole="Users" ToRole="Motos" />
+        </EntityType>
+        <Association Name="FK__Coches__UserId__48CFD27E">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Coches" Type="Self.Coch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Coches">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__CocheId__7A672E12">
+          <End Role="Coches" Type="Self.Coch" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Files" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coches">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="CocheId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__MotoId__7B5B524B">
+          <End Role="Motos" Type="Self.Moto" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Files" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="MotoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Files__UserId__7C4F7684">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Files" Type="Self.File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Motos__UserId__49C3F6B7">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Motos" Type="Self.Moto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Motos">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="motorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Coches" EntityType="Self.Coch" />
+          <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="Motos" EntityType="Self.Moto" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Coches__UserId__48CFD27E" Association="Self.FK__Coches__UserId__48CFD27E">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Coches" EntitySet="Coches" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__CocheId__7A672E12" Association="Self.FK__Files__CocheId__7A672E12">
+            <End Role="Coches" EntitySet="Coches" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__MotoId__7B5B524B" Association="Self.FK__Files__MotoId__7B5B524B">
+            <End Role="Motos" EntitySet="Motos" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Files__UserId__7C4F7684" Association="Self.FK__Files__UserId__7C4F7684">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Motos__UserId__49C3F6B7" Association="Self.FK__Motos__UserId__49C3F6B7">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Motos" EntitySet="Motos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="motorModelStoreContainer" CdmEntityContainer="motorEntities">
+          <EntitySetMapping Name="Coches">
+            <EntityTypeMapping TypeName="motorModel.Coch">
+              <MappingFragment StoreEntitySet="Coches">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="nombreFichero" ColumnName="nombreFichero" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="motorModel.File">
+              <MappingFragment StoreEntitySet="Files">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="MotoId" ColumnName="MotoId" />
+                <ScalarProperty Name="CocheId" ColumnName="CocheId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motos">
+            <EntityTypeMapping TypeName="motorModel.Moto">
+              <MappingFragment StoreEntitySet="Motos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="nombreFichero" ColumnName="nombreFichero" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="motorModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="user1" ColumnName="user" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombreFichero" ColumnName="nombreFichero" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
